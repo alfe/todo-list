@@ -3,7 +3,7 @@ import NewTodoInput from './components/NewTodoInput'
 import './App.css';
 
 function App() {
-  const [todo, setTodo] = useState(['123', '456']);
+  const [todo, setTodo] = useState([]);
   const delTodo = (index) => {
     setTodo(todo.filter((_, i) => (i !== index)));
   }
