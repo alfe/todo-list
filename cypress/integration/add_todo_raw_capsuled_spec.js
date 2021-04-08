@@ -18,11 +18,17 @@ context('Actions', () => {
   })
 
   it('add 3 todo and delete middle todo', () => {
+    // todo1を追加
     cy.addTodo('todo1');
+    // todo2を追加
     cy.addTodo('todo2');
+    // todo3を追加
     cy.addTodo('todo3');
 
+    // 2つ目を削除
     cy.deleteTodo(1);
+    
+    // 残アイテムの確認
     cy.get('.todo-item').contains('todo1');
     cy.get('.todo-item').contains('todo2').should('not.exist');
     cy.get('.todo-item').contains('todo3');
