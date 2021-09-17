@@ -32,7 +32,7 @@ function App() {
     <div className="App">
       <NewTodoInput onSubmit = {(value) => addTodo(value)} />
       <div className="todo-item-area">
-        <TodoList list={list} getList={getList} />
+        <TodoList db={db} list={list} getList={getList} />
       </div>
     </div>
   );

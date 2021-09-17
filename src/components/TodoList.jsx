@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 
-const db = getFirestore();
-
-const TodoList = ({ list, getList }) => {
+const TodoList = ({ db, list, getList }) => {
   useEffect(() => {
     getList();
   }, []);
