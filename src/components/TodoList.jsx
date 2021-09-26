@@ -1,27 +1,42 @@
-import { useEffect } from 'react';
-import { doc, deleteDoc } from "firebase/firestore";
+import { useState, useEffect } from 'react';
+import NewTodoInput from './NewTodoInput'
+import TodoListTable from './TodoListTable'
+import { getDoc, setDoc, updateDoc, deleteField , doc } from "firebase/firestore"
 
-const TodoList = ({ db, list, getList }) => {
+const USER_ID = 'XXXXX';
+
+const TodoList = ({ db }) => {
+  const [list, setList] = useState([]);
   useEffect(() => {
     getList();
-  }, []);
+  });
 
-  const handleDelete = (id) => {
-    (async () => {
-      await deleteDoc(doc(db, "todo", id));
-      getList();
-    })()
+  const getList = async () => {
+    const docRef = doc(db, "todo", USER_ID);
+    const docSnap = await getDoc(docRef);
+    const results = [];
+    if (docSnap.exists()) {
+      Object.entries(docSnap.data()).forEach(([id, value]) => {
+          results.push({ id, value });
+      })
+    }
+    setList(results.sort((a, b) => Number(a.id) - Number(b.id)).reverse());
+  };
+  const addTodo = async (value) => {
+    await setDoc(doc(db, "todo", USER_ID), { [new Date().getTime()]: value }, { merge: true });
+    getList();
   }
-
+  const deleteTodo = async (id) => {
+    await updateDoc(doc(db, "todo", USER_ID), { [id]: deleteField() });
+    getList();
+  }
   return (
     <>
-      {list.map((doc) => (
-        <p key={`todo-${doc.id}`} className="todo-item">
-          <span>{doc.value}</span>
-          <button onClick={() => handleDelete(doc.id)}>DEL</button>
-        </p>
-      ))}
+      <NewTodoInput onSubmit = {(value) => addTodo(value)} />
+      <div className="todo-item-area">
+        <TodoListTable list={list} onDelete={(id) => deleteTodo(id)} />
+      </div>
     </>
   );
-}
+};
 export default TodoList;

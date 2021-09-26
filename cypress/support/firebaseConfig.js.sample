@@ -1,0 +1,9 @@
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "todolist-XXXXX.firebaseapp.com",
+  projectId: "todolist-XXXXX",
+  storageBucket: "todolist-XXXXX.appspot.com",
+  messagingSenderId: "",
+  appId: ""
+};
+export default firebaseConfig;

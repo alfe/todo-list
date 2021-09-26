@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import NewTodoInput from './components/NewTodoInput'
-import TodoList from './components/TodoList'
+import { getFirestore } from "firebase/firestore"
 import { initializeApp } from "firebase/app"
-import { getFirestore, query, collection, getDocs, setDoc, doc } from "firebase/firestore"
+import TodoList from './components/TodoList'
 import './App.css';
 
 initializeApp({
@@ -14,26 +12,9 @@ initializeApp({
 const db = getFirestore();
 
 function App() {
-  const [list, setList] = useState([]);
-  const getList = async () => {
-    const q = query(collection(db, "todo"));
-    const querySnapshot = await getDocs(q);
-    const results = [];
-    querySnapshot.forEach((doc) => {
-      results.push({ id: doc.id, ...doc.data() })
-    });
-    setList(results);
-  };
-  const addTodo = async (value) => {
-    await setDoc(doc(collection(db, "todo")), { value: value });
-    getList();
-  }
   return (
     <div className="App">
-      <NewTodoInput onSubmit = {(value) => addTodo(value)} />
-      <div className="todo-item-area">
-        <TodoList db={db} list={list} getList={getList} />
-      </div>
+      <TodoList db={db} />
     </div>
   );
 }
