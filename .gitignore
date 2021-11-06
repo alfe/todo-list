@@ -27,3 +27,4 @@ yarn-error.log*
 *.mp4
 *.lwi
 .env
+/runner-results

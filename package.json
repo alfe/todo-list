@@ -7,12 +7,20 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "open": "cypress open"
+    "open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:parallel": "cypress-parallel -s cy:run -t 2 -a '\"--config baseUrl=http://localhost:3000\"'",
+    "cy:parallel1": "cypress-parallel -s cy:run -t 1 -a '\"--config baseUrl=http://localhost:3000\"'",
+    "cy:parallel2": "cypress-parallel -s cy:run -t 2 -a '\"--config baseUrl=http://localhost:3000\"'",
+    "cy:parallel4": "cypress-parallel -s cy:run -t 4 -a '\"--config baseUrl=http://localhost:3000\"'",
+    "cy:parallel8": "cypress-parallel -s cy:run -t 8 -a '\"--config baseUrl=http://localhost:3000\"'",
+    "cy:parallel10": "cypress-parallel -s cy:run -t 10 -a '\"--config baseUrl=http://localhost:3000\"'"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^13.2.1",
+    "cypress-parallel": "^0.5.0",
     "firebase": "^9.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -23,6 +31,7 @@
     "@cypress/react": "^5.10.0",
     "@cypress/webpack-dev-server": "^1.6.0",
     "cypress": "^8.4.0",
+    "cypress-multi-reporters": "^1.5.0",
     "eslint-plugin-cypress": "^2.12.1"
   },
   "eslintConfig": {
