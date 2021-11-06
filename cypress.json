@@ -1,4 +1,7 @@
 {
   "chromeWebSecurity": false,
-  "projectId": "o2vcc4"
+  "projectId": "o2vcc4",
+  "env": {
+    "baseURL": "https://todolist-5d08e.web.app/"
+  }
 }

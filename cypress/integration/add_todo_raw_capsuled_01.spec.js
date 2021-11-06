@@ -8,7 +8,7 @@ context('Actions', () => {
   })
 
   beforeEach(() => {
-    cy.visit(`http://localhost:3000#${USER_ID}`)
+    cy.visit(`${Cypress.env('baseURL')}#${USER_ID}`);
   })
 
   it('add todo', () => {

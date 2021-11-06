@@ -28,3 +28,4 @@ yarn-error.log*
 *.lwi
 .env
 /runner-results
+firebase-debug.log
