@@ -1,9 +1,9 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyD5fQhLqgpFGBNLFDIQVD-NKnzTNOZK1WU",
-  authDomain: "todolist-5d08e.firebaseapp.com",
-  projectId: "todolist-5d08e",
-  storageBucket: "todolist-5d08e.appspot.com",
-  messagingSenderId: "963096289447",
-  appId: "1:963096289447:web:1dd593a95589da6648bb82"
+  apiKey: "AIzaSyBvtl9EPNGIQ73kUqyj0kk0MJj6hYS1wGc",
+  authDomain: "todo-7e5a1.firebaseapp.com",
+  projectId: "todo-7e5a1",
+  storageBucket: "todo-7e5a1.appspot.com",
+  messagingSenderId: "768689250796",
+  appId: "1:768689250796:web:890cc838297629e2b8e0c9"
 };
 export default firebaseConfig;
