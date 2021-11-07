@@ -11,13 +11,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         containers: [1, 2, 3, 4, 5]
-
     steps:
     - uses: actions/checkout@v2
     - name: Cypress run
