@@ -25,6 +25,7 @@ Cypress.Commands.add('addTodo', (value) => {
   cy.get('#new-todo')
     .type(value).should('have.value', value)
     .type('{enter}', { delay: 100 });
+  cy.wait(3000)
   cy.get('#new-todo').should('have.value', '')
   cy.contains(value);
 });
@@ -32,4 +33,5 @@ Cypress.Commands.add('addTodo', (value) => {
 // TODOの削除 cy.deleteTodo(0);
 Cypress.Commands.add('deleteTodo', (nth) => {
   cy.get(`.todo-item:nth(${nth})`).contains('DEL').click();
+  cy.wait(3000)
 });
