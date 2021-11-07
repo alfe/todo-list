@@ -24,7 +24,7 @@ context('Actions', () => {
     cy.contains('todo1');
 
     cy.get('.todo-item:nth(0)').contains('DEL').click();
-    cy.should('not.exist');
+    cy.contains('todo2').should('not.exist');
   })
 
   xit('add 3 todo and delete middle todo', () => {

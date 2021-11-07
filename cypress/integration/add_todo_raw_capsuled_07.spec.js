@@ -3,11 +3,8 @@
 
 const USER_ID = 'XXXXX07';
 context('Actions', () => {
-  before(() => {
-    cy.deleteAllTodo(USER_ID);
-  })
-
   beforeEach(() => {
+    cy.deleteAllTodo(USER_ID);
     cy.visit(`${Cypress.env('baseURL')}#${USER_ID}`)
   })
 
@@ -19,7 +16,7 @@ context('Actions', () => {
     cy.addTodo('todo2');
 
     cy.deleteTodo(0);
-    cy.should('not.exist');
+    cy.contains('todo2').should('not.exist');
   })
 
   it('add 3 todo and delete middle todo', () => {
