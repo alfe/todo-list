@@ -8,10 +8,11 @@ const TodoList = ({ db }) => {
   const [list, setList] = useState([]);
   useEffect(() => {
     getList();
-  });
+  }, []);
   const getList = async () => {
     const docSnap = await getDoc(doc(db, "todo", USER_ID));
     if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
       setList(
         Object.entries(docSnap.data())
           .map(([id, value]) => ({ id, value }))
@@ -21,9 +22,11 @@ const TodoList = ({ db }) => {
   };
   const addTodo = async (value) => {
     await setDoc(doc(db, "todo", USER_ID), { [new Date().getTime()]: value }, { merge: true });
+    getList();
   }
   const deleteTodo = async (id) => {
     await updateDoc(doc(db, "todo", USER_ID), { [id]: deleteField() });
+    getList();
   }
   return (
     <>
