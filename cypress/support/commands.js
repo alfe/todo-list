@@ -35,3 +35,21 @@ Cypress.Commands.add('deleteTodo', (nth) => {
   cy.get(`.todo-item:nth(${nth})`).contains('DEL').click();
   cy.wait(1000)
 });
+
+Cypress.Commands.add('insertToDb', (user_id, content) => {
+  const query = `INSERT INTO todo (user_id, content) VALUES (${user_id}, ${content})`;
+  const mysql = require('mysql');
+  const connection = mysql.createConnection({
+    host: Cypress.env('DB_HOST'),
+    user: Cypress.env('DB_USER'),
+    password: Cypress.env('DB_PASSWORD'),
+    database: 'todo-list'
+  });
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('error: ', error);
+      return;
+    }
+    console.log(results);
+  });
+})

@@ -15,8 +15,25 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-// eslint-disable-next-line no-unused-vars
+
+const mysql = require('mysql2');
+
+// env DB_HOST=localhost DB_USER=root DB_PASSWORD=password DB_DATABASE=db yarn open
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  on('task', {
+    'db:delete'() {
+      return new Promise((resolve) => {
+        let connection = mysql.createConnection({
+          host: process.env.DB_HOST,
+          user: process.env.DB_USER,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_DATABASE,
+        });
+        connection.query('DELETE FROM todo;', function(err, result) {
+          console.log(result); // queryの結果
+          return resolve(null);
+        });
+      });
+    },
+  })
 }
