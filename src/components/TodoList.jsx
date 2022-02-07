@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
-import NewTodoInput from './NewTodoInput'
+import { Button, TextField, IconButton, AppBar, Tabs, Tab,
+  Table, TableBody, TableRow, TableCell,
+} from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 import { getDoc, setDoc, updateDoc, deleteField , doc } from "firebase/firestore"
+import NewTodoInput from './NewTodoInput'
 
 const USER_ID = window.location.hash.replace('#', '') || 'XXXXX';
 
@@ -33,6 +41,22 @@ const TodoList = ({ db }) => {
   }
   return (
     <>
+      <AppBar id="header" position="static">
+        <Tabs
+          style={{ backgroundColor: '#333' }}
+          value="TOP PAGE"
+          indicatorColor="secondary"
+          textColor="inherit"
+          variant="fullWidth"
+          aria-label="full width tabs example"
+        >
+          <Tab style={{ minWidth: 120, flexGrow: 0.05 }} label="TOP PAGE" value="TOP PAGE" />
+          <Tab style={{ minWidth: 120, flexGrow: 0.05 }} label="TOOLS" value="TOOLS" />
+          <Tab style={{ minWidth: 120, flexGrow: 0.05 }} label="CONTACT" value="CONTACT" />
+        </Tabs>
+      </AppBar>
+
+      <div style={{ paddingBottom: '50px' }} />
       <NewTodoInput onSubmit = {(value) => addTodo(value)} />
       <div className="todo-item-area">
         {list.map((doc) => (
@@ -42,7 +66,67 @@ const TodoList = ({ db }) => {
           </p>
         ))}
       </div>
+      <Config />
+      <InfoTable />
     </>
   );
 };
 export default TodoList;
+
+const Config = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <div className="config-button">
+        <IconButton data-cy="config" onClick={() => setOpen(true)}>
+          <SettingsIcon />
+        </IconButton>
+      </div>
+      <Dialog maxWidth="lg" onClose={() => setOpen(false)} open={open}>
+        <DialogTitle>コメントの追加</DialogTitle>
+        <DialogContent style={{ padding: '8px 24px' }}>
+          <TextField />
+
+        </DialogContent>
+        <DialogActions style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 24px'}}>
+          <Button autoFocus onClick={() => setOpen(false)}>
+            キャンセル
+          </Button>
+          <Button autoFocus onClick={() => setOpen(false)}>
+            投稿
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
+
+const InfoTable = () => {
+  return (
+    <div style={{ 
+      minHeight: '80vh',
+      padding: '20rem auto 10rem',
+    }}>
+      <Table id="info-table" style={{ 
+        maxWidth: '400px',
+        background: 'white',
+        border: '1px solid rgba(224, 224, 224, 1)'
+      }}>
+        <TableBody>
+          <TableRow>
+            <TableCell component="th" scope="row">ユーザ名</TableCell>
+            <TableCell align="left">テストユーザー１</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell component="th" scope="row">ユーザUUID</TableCell>
+            <TableCell align="left"><span id='user-uuid'>  XXXX-XXXX-XXXX-XXXX</span></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell component="th" scope="row">ユーザロール</TableCell>
+            <TableCell align="left">グループ管理者</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
